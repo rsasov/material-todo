@@ -1,0 +1,23 @@
+<div class="controls">
+    <mat-form-field>
+        <mat-label>Search</mat-label>
+        <input matInput type="text" [(ngModel)]="searchTerm">
+        @if (searchTerm) {
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="searchTerm=''">
+                <mat-icon>close</mat-icon>
+            </button>
+        }
+    </mat-form-field>
+    <button mat-button="elevated" [disabled]="!canAddTodo()" (click)="addTodo()">Add</button>
+    <button mat-button="elevated" [disabled]="!canDeleteTodo()" (click)="deleteCompletedTodos()">Delete</button>
+</div>
+
+<hr>
+<mat-selection-list #todoItems>
+  @for (todo of todos; track todo) {
+    <mat-list-option [(selected)]="todo.isCompleted">{{todo.value}}</mat-list-option>
+  }
+</mat-selection-list>
+<p>
+  Options selected: {{todoItems.selectedOptions.selected.length}}
+</p>
